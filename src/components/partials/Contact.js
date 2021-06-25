@@ -52,18 +52,16 @@ export default class Contact extends React.Component {
       message: this.state.message,
     }
 
-    const corsAnywhere = "https://cors-anywhere.herokuapp.com/"
 
     return await axios({
       method: "POST",
-      url: `${corsAnywhere}https://italianoenterprise.herokuapp.com/api/send-email?&email=${info.email}&firstName=${info.firstName}&lastName=${info.lastName}&phone=${info.phone}&message=${info.message}`,
-      data: {
-        headers: {
-          "Access-Control-Allow-Origin":
-            "https://www.italianobrosenterprise.com",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+      url: `https://italianoenterprise.herokuapp.com/api/send-email`,
+      headers: {
+        "Access-Control-Allow-Origin":
+          "https://www.italianobrosenterprise.com",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
+      data: info
     })
       .then(res => {
         this.setState({
@@ -86,7 +84,7 @@ export default class Contact extends React.Component {
           loading: false,
           response: err.message,
         })
-        console.log("error", this.state.response)
+        console.log("error", err)
       })
   }
 
@@ -142,9 +140,8 @@ export default class Contact extends React.Component {
           className={
             this.props.isMobile
               ? layoutStyles.cf__top__tier
-              : `${
-                  this.props.toggled ? wideScreenStyles.nb__dt__top__tier : null
-                }`
+              : `${this.props.toggled ? wideScreenStyles.nb__dt__top__tier : null
+              }`
           }
         >
           {this.props.isMobile ? (
