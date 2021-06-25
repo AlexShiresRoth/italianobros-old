@@ -45,25 +45,25 @@ export default class Contact extends React.Component {
     e.preventDefault()
     this.setState({ loading: true })
     const info = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      phone: this.state.phone,
-      message: this.state.message,
+      firstName: this.state.firstName[0],
+      lastName: this.state.lastName[0],
+      email: this.state.email[0],
+      phone: this.state.phone[0],
+      message: this.state.message[0],
     }
-
-    const corsAnywhere = "https://cors-anywhere.herokuapp.com/"
+    console.log("types", info)
 
     return await axios({
       method: "POST",
-      url: `${corsAnywhere}https://italianoenterprise.herokuapp.com/api/send-email?&email=${info.email}&firstName=${info.firstName}&lastName=${info.lastName}&phone=${info.phone}&message=${info.message}`,
-      data: {
-        headers: {
-          "Access-Control-Allow-Origin":
-            "https://www.italianobrosenterprise.com",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+      url: `https://italianoenterprise.herokuapp.com/api/send-email`,
+      headers: {
+        "Access-Control-Allow-Origin": [
+          "https://www.italianobrosenterprise.com",
+          "http://localhost:8000",
+        ],
+        "Content-Type": "application/json",
       },
+      data: JSON.stringify({ ...info }),
     })
       .then(res => {
         this.setState({
@@ -77,7 +77,7 @@ export default class Contact extends React.Component {
           loading: false,
           response: res,
         })
-        console.log(this.state.response)
+        console.log(res)
       })
       .catch(err => {
         this.setState({
@@ -86,7 +86,7 @@ export default class Contact extends React.Component {
           loading: false,
           response: err.message,
         })
-        console.log("error", this.state.response)
+        console.log("error", err)
       })
   }
 
