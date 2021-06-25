@@ -51,7 +51,7 @@ export default class Contact extends React.Component {
       phone: this.state.phone,
       message: this.state.message,
     }
-    const body = JSON.stringify({ ...info })
+    const body = JSON.stringify(info)
 
     await axios({
       method: "POST",
