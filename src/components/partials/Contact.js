@@ -52,13 +52,14 @@ export default class Contact extends React.Component {
       message: this.state.message[0],
     }
 
-    const body = JSON.stringify(info)
+    const body = JSON.stringify({ ...info })
 
     console.log("types", body)
-    return await axios({
+    await axios({
       method: "POST",
-      url: `https://italianoenterprise.herokuapp.com/api/send-email`,
+      url: `https://asrserver.herokuapp.com/api/send-email`,
       headers: {
+        "Access-Control-Allow-Origin": "https://www.italianobrosenterprise.com",
         "Content-Type": "application/json",
       },
       data: body,
