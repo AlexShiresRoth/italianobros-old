@@ -51,15 +51,17 @@ export default class Contact extends React.Component {
       phone: this.state.phone[0],
       message: this.state.message[0],
     }
-    console.log("types", info)
 
+    const body = JSON.stringify(info)
+
+    console.log("types", body)
     return await axios({
       method: "POST",
       url: `https://italianoenterprise.herokuapp.com/api/send-email`,
       headers: {
         "Content-Type": "application/json",
       },
-      data: JSON.stringify({ ...info }),
+      data: body,
     })
       .then(res => {
         this.setState({
