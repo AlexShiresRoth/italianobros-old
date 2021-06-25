@@ -57,8 +57,6 @@ export default class Contact extends React.Component {
       method: "POST",
       url: `https://italianoenterprise.herokuapp.com/api/send-email`,
       headers: {
-        "Access-Control-Allow-Origin": "https://www.italianobrosenterprise.com",
-
         "Content-Type": "application/json",
       },
       data: JSON.stringify({ ...info }),
